@@ -1,4 +1,4 @@
-/*package com.example.test_libgdxintoandroid;
+package com.example.test_libgdxintoandroid;/*package com.example.test_libgdxintoandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,3 +64,26 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 //}
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.test_libgdxintoandroid.R;
+
+public class MainActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE = "test";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    /** Called when the user taps the Send button */
+    public void sendMessage(View view) {
+        Intent intent = new Intent(MainActivity.this, AndroidLauncher.class);
+        MainActivity.this.startActivity(intent);
+    }
+}
