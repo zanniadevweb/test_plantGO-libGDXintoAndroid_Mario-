@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
 
 public class AndroidLauncher extends AndroidApplication {
     @Override
@@ -12,5 +13,19 @@ public class AndroidLauncher extends AndroidApplication {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         initialize(new MyGdxGame(), config);
+    }
+
+    //@Override
+    public void onStartActivityA() {
+        Intent intent = new Intent(AndroidLauncher.this, MainActivity.class);
+        new DelayAction(5); // Il semble que ça crashe si on ne met pas un délai avant d'exécuter le processus (logique car on passe d'un système à un autre)
+        AndroidLauncher.this.startActivity(intent);
+    }
+
+    //@Override
+    public void onStartActivityB() {
+        Intent intent2 = new Intent(AndroidLauncher.this, MyGdxGame.class);
+        new DelayAction(5); // Il semble que ça crashe si on ne met pas un délai avant d'exécuter le processus (logique car on passe d'un système à un autre)
+        AndroidLauncher.this.startActivity(intent2);
     }
 }

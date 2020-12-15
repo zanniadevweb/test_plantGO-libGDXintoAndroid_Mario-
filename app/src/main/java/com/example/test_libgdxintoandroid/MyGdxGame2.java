@@ -13,11 +13,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -26,13 +31,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.example.test_libgdxintoandroid.Screens.PlayScreen;
 
 import java.util.HashMap;
 
-class MyGdxGame extends ApplicationAdapter {
+// Au départ il s'agissait d'un "extends ApplicationAdapter
+public class MyGdxGame2 extends ApplicationAdapter {
+
     final HashMap<String, Sprite> sprites = new HashMap<String, Sprite>();
     TextureAtlas textureAtlas;
-    SpriteBatch batch;
+    public SpriteBatch batch;
     OrthographicCamera camera;
     ExtendViewport viewport;
     World world;
@@ -44,12 +52,11 @@ class MyGdxGame extends ApplicationAdapter {
 
     float accumulator = 0;
 
-
     // Define an interface for your various callbacks to the android launcher
     public interface MyGameCallback {
-        public void onStartActivityA();
-        public void onStartActivityB();
-        public void onStartSomeActivity(int someParameter, String someOtherParameter);
+        public void onStartActivityA(); // Activité locale permettant de revenir au MainActivity
+        public void onStartActivityB(); // Activité locale permettant d'amener d'amener à InitiateurPlayScreen
+        //public void onStartSomeActivity(int someParameter, String someOtherParameter);
     }
 
     // Local variable to hold the callback implementation
@@ -64,6 +71,7 @@ class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create () {
         batch = new SpriteBatch();
+
         camera = new OrthographicCamera();
         stage = new Stage();
         viewport = new ExtendViewport(800, 600, camera);
@@ -100,23 +108,47 @@ class MyGdxGame extends ApplicationAdapter {
         stage.addActor(table);
 
         // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
-        final TextButton button = new TextButton("Click me!", skin);
-        table.add(button).size(300);
+        final TextButton button1 = new TextButton("Click me!", skin);
+        table.add(button1).size(300);
+
+        // Create a second button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
+        final TextButton button2 = new TextButton("Click me!", skin);
+        table.add(button2).size(100);
+
+        // Create a third button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
+        final TextButton button3 = new TextButton("Click me!", skin);
+        table.add(button3).size(300);
 
         // Add a listener to the button. ChangeListener is fired when the button's checked state changes, eg when clicked,
         // Button#setChecked() is called, via a key press, etc. If the event.cancel() is called, the checked state will be reverted.
         // ClickListener could have been used, but would only fire when clicked. Also, canceling a ClickListener event won't
         // revert the checked state.
-        button.addListener(new ChangeListener() {
+        button1.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                System.out.println("Clicked! Is checked: " + button.isChecked());
-                button.setText("Good job!");
+                System.out.println("Clicked! Is checked: " + button1.isChecked());
+                myGameCallback.onStartActivityA(); // Ligne permettant de déclencher la méthode du launcher permettant de lancer MainActivity en cliquant sur ce bouton
             }
         });
+
+        button2.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                System.out.println("Clicked! Is checked: " + button2.isChecked());
+                button2.setText("Good job!");
+            }
+        });
+
+        button3.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                System.out.println("Clicked! Is checked: " + button3.isChecked());
+                myGameCallback.onStartActivityB(); // Ligne permettant de déclencher la méthode du launcher permettant de lancer MyGdxGame en cliquant sur ce bouton
+            }
+        });
+
         // Add an image actor. Have to set the size, else it would be the size of the drawable (which is the 1x1 texture).
         table.add(new Image(skin.newDrawable("white", Color.RED))).size(300);
 
     }
+
 
     private void addSprites() {
         Array<AtlasRegion> regions = textureAtlas.getRegions();
@@ -154,7 +186,6 @@ class MyGdxGame extends ApplicationAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-
         drawSprite("banana", 0, 0);
         drawSprite("cherries", 100, 100);
 

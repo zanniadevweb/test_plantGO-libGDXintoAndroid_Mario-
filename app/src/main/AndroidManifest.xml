@@ -19,11 +19,9 @@
             </intent-filter>
         </activity>
 
-    <!-- A REACTIVER POUR DEMARRER EN PREMIER PAR LE JEU -->
           <activity
               android:name=".AndroidLauncher"
               android:label="@string/app_name" >
-          -->
       </activity>
 
       </application>

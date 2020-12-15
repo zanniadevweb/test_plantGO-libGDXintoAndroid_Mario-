@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="2020.11.25" orientation="orthogonal" renderorder="right-down" width="13" height="120" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="9">
+ <tileset firstgid="1" source="NES - Super Mario Bros - World 1-1.tsx"/>
+ <layer id="1" name="background" width="13" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztw6ENAAAMAjDE7uV/yQ3zbdJeUlVVVVVV1ccB3te2zw==
+  </data>
+ </layer>
+ <layer id="2" name="graphics" width="13" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztlMkNwjAURBPWQAdQCXsHFMB2YqmBpQokrmxFwInlAnRACRQBJ8YSFgFs4yAOSMyT3iFOvpLMWHYcQgghhBBCCCGEEPKPlMJ3MzALczAPC7B4uxeEM7zAU8h+ZuE6zhLOFe/ysJ6ASVc924i8ru3w7B4eNDOpqP23SY4fzAxjwWfK8cdrUy9+JUFyl6hyf4cqd8kKua/hBm59HZhy7+K7e7APB75/ELnLPWWLyF3uKVuec7fB1I3oQdWPiW/3oMvN1IMuN9GDrlcdogddrzo+6eEX9ryOb501Y2Q5gVM4U5wrqrOmgiyrsAbrcPSUrci6CVuwDTsw7QX3Cj+tNRc=
+  </data>
+ </layer>
+ <objectgroup id="3" name="ground">
+  <object id="8" x="0" y="1904.25" width="207.75" height="15.75"/>
+ </objectgroup>
+ <objectgroup id="4" name="bricks">
+  <object id="3" x="17.3333" y="1678.67" width="109.333" height="14.6667"/>
+  <object id="5" x="31.3333" y="1552.67" width="160.667" height="13.3333"/>
+  <object id="6" x="14.6667" y="1422.67" width="161.333" height="15.3333"/>
+  <object id="7" x="144.667" y="1678.67" width="46.6667" height="14.6667"/>
+ </objectgroup>
+</map>
