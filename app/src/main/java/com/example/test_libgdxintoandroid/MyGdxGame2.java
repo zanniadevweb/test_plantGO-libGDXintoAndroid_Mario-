@@ -55,7 +55,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
     // Define an interface for your various callbacks to the android launcher
     public interface MyGameCallback {
         public void onStartActivityA(); // Activité locale permettant de revenir au MainActivity
-        public void onStartActivityB(); // Activité locale permettant d'amener d'amener à InitiateurPlayScreen
+        //public void onStartActivityB(); // Activité locale permettant d'amener d'amener à InitiateurPlayScreen
         //public void onStartSomeActivity(int someParameter, String someOtherParameter);
     }
 
@@ -130,17 +130,11 @@ public class MyGdxGame2 extends ApplicationAdapter {
             }
         });
 
+        // Bouton qui peut être cliqué pour changer son apparence
         button2.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 System.out.println("Clicked! Is checked: " + button2.isChecked());
                 button2.setText("Good job!");
-            }
-        });
-
-        button3.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
-                System.out.println("Clicked! Is checked: " + button3.isChecked());
-                myGameCallback.onStartActivityB(); // Ligne permettant de déclencher la méthode du launcher permettant de lancer MyGdxGame en cliquant sur ce bouton
             }
         });
 

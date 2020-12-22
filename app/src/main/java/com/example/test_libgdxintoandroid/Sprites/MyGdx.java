@@ -40,15 +40,15 @@ public class MyGdx extends Sprite {
 
     public void defineGdx(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32, 32);
-        //bdef.position.set(32 / MyGdxGame.PPM, 32 / MyGdxGame.PPM);
+        //bdef.position.set(32, 32);
+        bdef.position.set(32 / MyGdxGame.PPM, 32 / MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(5);
-        //shape.setRadius(5 / MyGdxGame.PPM);
+        //shape.setRadius(5);
+        shape.setRadius(5 / MyGdxGame.PPM);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);

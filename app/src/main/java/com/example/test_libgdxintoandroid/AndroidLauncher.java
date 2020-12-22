@@ -22,10 +22,4 @@ public class AndroidLauncher extends AndroidApplication {
         AndroidLauncher.this.startActivity(intent);
     }
 
-    //@Override
-    public void onStartActivityB() {
-        Intent intent2 = new Intent(AndroidLauncher.this, MyGdxGame.class);
-        new DelayAction(5); // Il semble que ça crashe si on ne met pas un délai avant d'exécuter le processus (logique car on passe d'un système à un autre)
-        AndroidLauncher.this.startActivity(intent2);
-    }
 }

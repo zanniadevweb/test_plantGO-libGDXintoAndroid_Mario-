@@ -1,6 +1,6 @@
-/*package com.brentaureli.mariobros.Sprites.TileObjects;
+package com.example.test_libgdxintoandroid.Sprites.TileObjects;
 
-import com.badlogic.gdx.maps.MapObject;
+/*import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -19,20 +19,51 @@ import com.brentaureli.mariobros.Scenes.Hud;
 import com.brentaureli.mariobros.Screens.PlayScreen;
 import com.brentaureli.mariobros.Sprites.Mario;*/
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.example.test_libgdxintoandroid.MyGdxGame;
+
 /**
  * Created by brentaureli on 8/28/15.
- *//*
+ */
 public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
+    protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
-    protected PlayScreen screen;
-    protected MapObject object;
+    //protected PlayScreen screen;
+    //protected MapObject object;
 
-    protected Fixture fixture;
+    //protected Fixture fixture;
 
-    public InteractiveTileObject(PlayScreen screen, MapObject object){
+    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {
+    this.world = world;
+    this.map = map;
+    this.bounds = bounds;
+
+        BodyDef bdef = new BodyDef();
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+
+        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / MyGdxGame.PPM, (bounds.getY() + bounds.getHeight() / 2) / MyGdxGame.PPM);
+
+        body = world.createBody(bdef);
+
+        shape.setAsBox(bounds.getWidth() / 2 / MyGdxGame.PPM, bounds.getHeight() / 2 / MyGdxGame.PPM);
+        fdef.shape = shape;
+        body.createFixture(fdef);
+    }
+    }
+
+    /*public InteractiveTileObject(PlayScreen screen, MapObject object){
         this.object = object;
         this.screen = screen;
         this.world = screen.getWorld();
@@ -67,4 +98,5 @@ public abstract class InteractiveTileObject {
                 (int)(body.getPosition().y * MarioBros.PPM / 16));
     }
 
-}*/
+*/
+
