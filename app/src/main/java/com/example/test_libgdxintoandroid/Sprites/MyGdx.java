@@ -64,7 +64,7 @@ public class MyGdx extends Sprite {
         }
         marioJump = new Animation(0.1f, frames);
 
-        marioStand = new TextureRegion(getTexture(), 1, 11, 16, 16);
+        marioStand = new TextureRegion(getTexture(), 0, 0, 16, 16);
         defineGdx();
         setBounds(0, 0, 16 / MyGdxGame.PPM, 16 / MyGdxGame.PPM);
         setRegion(marioStand);
