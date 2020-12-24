@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -37,11 +38,12 @@ import com.example.test_libgdxintoandroid.Tools.B2WorldCreator;
  * Created by brentaureli on 8/14/15.
  */
 public class PlayScreen implements Screen{
+
     //Reference to our Game, used to set Screens
     private MyGdxGame game;
+    private TextureAtlas atlas;
 
-    /*private TextureAtlas atlas;
-    public static boolean alreadyDestroyed = false;*/
+    // public static boolean alreadyDestroyed = false;
 
     //basic playscreen variables
     private OrthographicCamera gamecam;
@@ -75,7 +77,9 @@ public class PlayScreen implements Screen{
 
 
     public PlayScreen(MyGdxGame game){
-        //atlas = new TextureAtlas("Mario_and_Enemies.pack");
+
+        atlas = new TextureAtlas("Mario_and_Enemies.pack");
+
         this.game = game;
 
         //create cam used to follow mario through cam world
@@ -84,7 +88,7 @@ public class PlayScreen implements Screen{
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         // Inverser WIDTH ET HEIGHT pour afficher dans le bon sens
         //gamePort = new FitViewport(MyGdxGame.V_WIDTH, MyGdxGame.V_HEIGHT, gamecam);
-         gamePort = new FitViewport(MyGdxGame.V_WIDTH / MyGdxGame.PPM, MyGdxGame.V_HEIGHT / MyGdxGame.PPM, gamecam);
+        gamePort = new FitViewport(MyGdxGame.V_WIDTH / MyGdxGame.PPM, MyGdxGame.V_HEIGHT / MyGdxGame.PPM, gamecam);
 
         //create our game HUD for scores/timers/level info
         hud = new Hud(game.batch);
@@ -104,82 +108,11 @@ public class PlayScreen implements Screen{
         //allows for debug lines of our box2d world.
         b2dr = new Box2DDebugRenderer();
 
-        /*
-        // Create body and fixtures variables
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        //create ground bodies/fixtures
-        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            //bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MyGdxGame.PPM, (rect.getY() + rect.getHeight() / 2) / MyGdxGame.PPM);
-
-            body = world.createBody(bdef);
-
-            //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
-            shape.setAsBox(rect.getWidth() / 2 / MyGdxGame.PPM, rect.getHeight() / 2 / MyGdxGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //create pipe bodies/fixtures
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            //bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MyGdxGame.PPM, (rect.getY() + rect.getHeight() / 2) / MyGdxGame.PPM);
-
-            body = world.createBody(bdef);
-
-            //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
-            shape.setAsBox(rect.getWidth() / 2 / MyGdxGame.PPM, rect.getHeight() / 2 / MyGdxGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //create coins bodies/fixtures
-        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            //bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MyGdxGame.PPM, (rect.getY() + rect.getHeight() / 2) / MyGdxGame.PPM);
-
-            body = world.createBody(bdef);
-
-            //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
-            shape.setAsBox(rect.getWidth() / 2 / MyGdxGame.PPM, rect.getHeight() / 2 / MyGdxGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //create brick bodies/fixtures
-        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            //bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MyGdxGame.PPM, (rect.getY() + rect.getHeight() / 2) / MyGdxGame.PPM);
-
-            body = world.createBody(bdef);
-
-            //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
-            shape.setAsBox(rect.getWidth() / 2 / MyGdxGame.PPM, rect.getHeight() / 2 / MyGdxGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }*/
-
         new B2WorldCreator(world, map);
         //creator = new B2WorldCreator(this);
 
         //create mario in our game world
-        player = new MyGdx(world);
+        player = new MyGdx(world, this);
 
         //world.setContactListener(new WorldContactListener());
 
@@ -209,31 +142,33 @@ public class PlayScreen implements Screen{
     }
 
 
-    /*public TextureAtlas getAtlas(){
+    public TextureAtlas getAtlas(){
         return atlas;
-    }*/
+    }
 
     @Override
     public void show() {
     }
 
     public void handleInput(float dt){
-        if (Gdx.input.isTouched()) { // Méthode qui fait que si on clique, ça va à droite
+        /*if (Gdx.input.isTouched()) { // Méthode qui fait que si on clique, ça va à droite = obsolète mais potentiellement utile pour la suite
             gamecam.position.x += 200 * dt;
-        }
-
-        /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
-        /*if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) { // Méthode qui fait que si on appuie sur la touche A, ça ramène au menu principal
-            gamecam.position.x += -200 * dt;
-            //game.setScreen((Screen) MyGdxGame2); // Marche (l'écran se bloque mais la transition doit être un peu brutale.. il faut peut etre capturer le retour avant qu'il puisse être exploitée)
         }*/
+
+        /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) { // Méthode qui fait que si on appuie sur la touche BACKSPACE, ça ramène au menu principal
+            Gdx.app.exit(); // Quitte l'écran en cours (devra peut-être ajouter une ligne de plus si plus d'un écran : https://stackoverflow.com/questions/40449844/how-to-close-a-game-that-uses-multiple-screen-in-libgdx)
+            game.setScreen((Screen) MyGdxGame2); // Permet de naviguer à l'écran principal
+        }
         /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
 
+        //MyGdx gdx = new MyGdx(world, this);  /***** INSTANCIATION POUR UTILISER CURRENTSTATE => MARCHE PAS CAR UTILISE CONSTRUCTEUR EN PERMANENCE => DOIT TROUVER AUTRE CHOSE
 
         //control our player using immediate impulses
         /*************************************** PROBLEME AVEC LE SAUT PARTIE 8******************************************/
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
+        // if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && gdx.currentState != MyGdx.State.JUMPING && gdx.currentState != MyGdx.State.FALLING) { /***** CONDITION POUR CETTE METHODE
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                player.b2body.applyLinearImpulse(new Vector2(0, 1f), player.b2body.getWorldCenter(), true);
             }
         /*************************************** PROBLEME AVEC LE SAUT PARTIE 8******************************************/
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
@@ -268,11 +203,10 @@ public class PlayScreen implements Screen{
         //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
 
-        /*****************************************/// LIGNE QUI POSE LE PROBLEME DE CRASH /
-        gamecam.position.x = player.b2body.getPosition().x;
-        /*****************************************/// LIGNE QUI POSE LE PROBLEME DE CRASH /
+        player.update(dt);
 
-        //player.update(dt);
+        gamecam.position.x = player.b2body.getPosition().x;
+
         /*for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
             if(enemy.getX() < player.getX() + 224 / MyGdxGame.PPM) {
@@ -291,13 +225,9 @@ public class PlayScreen implements Screen{
         }*/
 
         //update our gamecam with correct coordinates after changes
-        /*****************************************/// TUTORIEL PART 5 /
         gamecam.update();
-        /*****************************************/// TUTORIEL PART 5 /
         //tell our renderer to draw only what our camera can see in our game world.
-        /*****************************************/// TUTORIEL PART 5 /
         renderer.setView(gamecam);
-        /*****************************************/// TUTORIEL PART 5 /
 
     }
 
@@ -305,23 +235,23 @@ public class PlayScreen implements Screen{
     @Override
     public void render(float delta) {
         //separate our update logic from render
-        /*****************************************/// TUTORIEL PART 5 /
         update(delta);
-        /*****************************************/// TUTORIEL PART 5 /
 
         //Clear the game screen with Black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //render our game map
-        /*****************************************/// TUTORIEL PART 5 /
         renderer.render();
-        /*****************************************/// TUTORIEL PART 5 /
 
         //renderer our Box2DDebugLines
         b2dr.render(world, gamecam.combined);
 
-        //player.draw(game.batch);
+        game.batch.setProjectionMatrix(gamecam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
+
         /*for (Enemy enemy : creator.getEnemies())
             enemy.draw(game.batch);
         for (Item item : items)

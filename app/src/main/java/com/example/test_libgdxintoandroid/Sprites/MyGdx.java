@@ -2,6 +2,7 @@ package com.example.test_libgdxintoandroid.Sprites;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,29 +27,116 @@ import com.example.test_libgdxintoandroid.Sprites.Enemies.*;*/
  * Created by brentaureli on 8/27/15.
  */
 public class MyGdx extends Sprite {
-    /*public enum State { FALLING, JUMPING, STANDING, RUNNING, GROWING, DEAD };
+    public enum State { FALLING, JUMPING, STANDING, RUNNING };
+    //public enum State { FALLING, JUMPING, STANDING, RUNNING, GROWING, DEAD };
     public State currentState;
-    public State previousState;*/
-
+    public State previousState;
     public World world;
     public Body b2body;
+    private TextureRegion marioStand;
+    private Animation<TextureRegion> marioRun;
+    private Animation<TextureRegion> marioJump;
+    private float stateTimer;
+    private boolean runningRight;
 
-    public MyGdx(World world) {
+    public MyGdx(World world, PlayScreen screen) {
+        super(screen.getAtlas().findRegion("little_mario"));
         this.world = world;
+        currentState = State.STANDING;
+        previousState = State.STANDING;
+        stateTimer = 0;
+        runningRight = true;
+
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+        // Define run animation
+        for (int i = 1; i < 4; i++) {
+            frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
+        }
+        marioRun = new Animation(0.1f, frames);
+
+        // clear frames for next animation
+        frames.clear();
+
+        // define jump animation
+        for (int i = 1; i < 6; i++) {
+            frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
+        }
+        marioJump = new Animation(0.1f, frames);
+
+        marioStand = new TextureRegion(getTexture(), 1, 11, 16, 16);
         defineGdx();
+        setBounds(0, 0, 16 / MyGdxGame.PPM, 16 / MyGdxGame.PPM);
+        setRegion(marioStand);
+    }
+
+    public void update (float dt) {
+        setPosition (b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        setRegion(getFrame(dt));
+    }
+
+    public TextureRegion getFrame(float dt) {
+        //get marios current state. ie. jumping, running, standing...
+        currentState = getState();
+        TextureRegion region;
+
+        //depending on the state, get corresponding animation keyFrame.
+        switch(currentState) {
+            case JUMPING:
+                region = marioJump.getKeyFrame(stateTimer);
+                break;
+            case RUNNING:
+                region = marioRun.getKeyFrame(stateTimer, true);
+                break;
+            case FALLING:
+            case STANDING:
+            default:
+                region = marioStand;
+                break;
+        }
+        //if mario is running left and the texture isnt facing left... flip it.
+        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
+            region.flip(true, false);
+            runningRight = false;
+        }
+        //if mario is running right and the texture isnt facing right... flip it.
+        else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
+            region.flip(true, false);
+            runningRight = true;
+        }
+        //if the current state is the same as the previous state increase the state timer.
+        //otherwise the state has changed and we need to reset timer.
+        stateTimer = currentState == previousState ? stateTimer + dt : 0;
+        //update previous state
+        previousState = currentState;
+        //return our final adjusted frame
+        return region;
+    }
+
+
+    public State getState() {
+        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
+            return State.JUMPING;
+        }
+        else if(b2body.getLinearVelocity().y < 0) {
+            return State.FALLING;
+        }
+        else if (b2body.getLinearVelocity().x != 0) {
+            return State.RUNNING;
+        }
+        else {
+            return State.STANDING;
+        }
     }
 
     public void defineGdx(){
         BodyDef bdef = new BodyDef();
-        //bdef.position.set(32, 32);
         bdef.position.set(32 / MyGdxGame.PPM, 32 / MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        //shape.setRadius(5);
-        shape.setRadius(5 / MyGdxGame.PPM);
+        shape.setRadius(6 / MyGdxGame.PPM);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
