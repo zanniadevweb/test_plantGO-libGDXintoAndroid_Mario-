@@ -167,8 +167,8 @@ public class PlayScreen implements Screen{
         //control our player using immediate impulses
         /*************************************** PROBLEME AVEC LE SAUT PARTIE 8******************************************/
         // if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && gdx.currentState != MyGdx.State.JUMPING && gdx.currentState != MyGdx.State.FALLING) { /***** CONDITION POUR CETTE METHODE
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 1f), player.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
+                player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
             }
         /*************************************** PROBLEME AVEC LE SAUT PARTIE 8******************************************/
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
