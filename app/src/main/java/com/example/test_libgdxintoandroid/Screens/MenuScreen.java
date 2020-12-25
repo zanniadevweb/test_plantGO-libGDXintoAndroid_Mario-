@@ -1,37 +1,24 @@
 /*package com.example.test_libgdxintoandroid.Screens;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.example.test_libgdxintoandroid.MyGdxGame;*/
+import com.example.test_libgdxintoandroid.MyGdxGame;
 
-/**
- * Created by brentaureli on 10/8/15.
- *//*
-public class GameOverScreen implements Screen {
-    private Viewport viewport;
-    private Stage stage;
+public class MenuScreen implements Screen {
 
     private Game game;
 
-    public GameOverScreen(Game game){
+    public void GameOverScreen(Game game){
         this.game = game;
-        viewport = new FitViewport(MyGdxGame.V_WIDTH, MyGdxGame.V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, ((MyGdxGame) game).batch);
+        FitViewport viewport = new FitViewport(MyGdxGame.V_WIDTH, MyGdxGame.V_HEIGHT, new OrthographicCamera());
+        Stage stage = new Stage(viewport, ((MyGdxGame) game).batch);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
@@ -47,22 +34,17 @@ public class GameOverScreen implements Screen {
         table.add(playAgainLabel).expandX().padTop(10f);
 
         stage.addActor(table);
-    }
+    }*/
 
-    @Override
+
+   /* @Override
     public void show() {
 
     }
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((MyGdxGame) game));
-            dispose();
-        }
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.draw();
+
     }
 
     @Override
@@ -87,6 +69,6 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+
     }
 }*/

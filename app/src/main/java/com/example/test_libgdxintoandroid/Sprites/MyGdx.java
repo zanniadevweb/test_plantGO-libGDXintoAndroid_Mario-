@@ -28,8 +28,8 @@ import com.example.test_libgdxintoandroid.Sprites.Enemies.*;*/
  * Created by brentaureli on 8/27/15.
  */
 public class MyGdx extends Sprite {
+    //public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD };
     public enum State { FALLING, JUMPING, STANDING, RUNNING };
-    //public enum State { FALLING, JUMPING, STANDING, RUNNING, GROWING, DEAD };
     public State currentState;
     public State previousState;
     public World world;
@@ -37,8 +37,10 @@ public class MyGdx extends Sprite {
     private TextureRegion marioStand;
     private Animation<TextureRegion> marioRun;
     private Animation<TextureRegion> marioJump;
+    //private Animation<TextureRegion> marioDead; //-- NEW
     private float stateTimer;
     private boolean runningRight;
+    private boolean marioIsDead; //-- NEW
 
     public MyGdx(PlayScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
@@ -59,12 +61,16 @@ public class MyGdx extends Sprite {
         frames.clear();
 
         // define jump animation
-        for (int i = 1; i < 6; i++) {
-            frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
+        for (int frame = 1; frame < 6; frame++) {
+            frames.add(new TextureRegion(getTexture(), frame * 16, 0, 16, 16));
         }
         marioJump = new Animation(0.1f, frames);
 
         marioStand = new TextureRegion(getTexture(), 0, 0, 16, 16);
+
+        //create dead mario texture region
+        //marioDead = new TextureRegion(getTexture(), 96, 0, 16, 16); //-- NEW
+
         defineGdx();
         setBounds(0, 0, 16 / MyGdxGame.PPM, 16 / MyGdxGame.PPM);
         setRegion(marioStand);
@@ -82,9 +88,17 @@ public class MyGdx extends Sprite {
 
         //depending on the state, get corresponding animation keyFrame.
         switch(currentState) {
+            /*case DEAD:
+                //region = marioDead; //-- NEW
+                break;*/
             case JUMPING:
                 region = marioJump.getKeyFrame(stateTimer);
                 break;
+            /*case GROWING:
+                region = growMario.getKeyFrame(stateTimer);
+                if(growMario.isAnimationFinished(stateTimer)) {
+                    runGrowAnimation = false;
+                }*/
             case RUNNING:
                 region = marioRun.getKeyFrame(stateTimer, true);
                 break;
@@ -115,6 +129,12 @@ public class MyGdx extends Sprite {
 
 
     public State getState() {
+        /*if (marioIsDead) {
+            return State.DEAD;
+        }*/
+        /*else if (runGrowAnimation) {
+            return State.GROWING;
+        }*/
         if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
             return State.JUMPING;
         }
@@ -129,6 +149,14 @@ public class MyGdx extends Sprite {
         }
     }
 
+    /* public boolean isDead(){
+        return marioIsDead;
+    }
+
+    public float getStateTimer(){
+        return stateTimer;
+    }*/
+
     public void defineGdx(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(32 / MyGdxGame.PPM, 32 / MyGdxGame.PPM);
@@ -140,7 +168,7 @@ public class MyGdx extends Sprite {
         shape.setRadius(6 / MyGdxGame.PPM);
 
         fdef.shape = shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef); // -- Ensemble Copié dans Goomba (cf. partie 16, 5:04 min)
     }
 
 

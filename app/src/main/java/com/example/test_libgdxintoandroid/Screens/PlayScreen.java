@@ -30,6 +30,7 @@ import com.example.test_libgdxintoandroid.MainActivity;
 import com.example.test_libgdxintoandroid.MyGdxGame;
 import com.example.test_libgdxintoandroid.MyGdxGame2;
 import com.example.test_libgdxintoandroid.Scenes.Hud;
+//import com.example.test_libgdxintoandroid.Sprites.Ennemies.Goomba;
 import com.example.test_libgdxintoandroid.Sprites.MyGdx;
 import com.example.test_libgdxintoandroid.Tools.B2WorldCreator;
 //import com.example.test_libgdxintoandroid.Tools.WorldContactListener;
@@ -70,6 +71,7 @@ public class PlayScreen implements Screen{
     /*************************************** PARTIE 8 ******************************************/
     private MyGdx player; // Character class object
     /*************************************** PARTIE 8 ******************************************/
+    //private Goomba goomba;
 
     private Music music;
 
@@ -122,6 +124,8 @@ public class PlayScreen implements Screen{
         music.setVolume(0.3f);
         music.play();
 
+        //goomba = new Goomba(this, .32f, .32f);
+
         /*items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();*/
 
@@ -158,8 +162,9 @@ public class PlayScreen implements Screen{
 
         /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
         if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) { // Méthode qui fait que si on appuie sur la touche BACKSPACE, ça ramène au menu principal
+            music.stop();
             Gdx.app.exit(); // Quitte l'écran en cours (devra peut-être ajouter une ligne de plus si plus d'un écran : https://stackoverflow.com/questions/40449844/how-to-close-a-game-that-uses-multiple-screen-in-libgdx)
-            game.setScreen((Screen) MyGdxGame2); // Permet de naviguer à l'écran principal
+            //game.setScreen((Screen) MyGdxGame2); // Permet de naviguer à la deuxième activité de jeu
         }
         /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
 
@@ -205,6 +210,8 @@ public class PlayScreen implements Screen{
         world.step(1 / 60f, 6, 2);
 
         player.update(dt);
+        //goomba.update(dt);
+        //hud.update(dt);
 
         gamecam.position.x = player.b2body.getPosition().x;
 
@@ -217,8 +224,6 @@ public class PlayScreen implements Screen{
 
         /*for(Item item : items)
             item.update(dt);*/
-
-        //hud.update(dt);
 
         //attach our gamecam to our players.x coordinate
         /*if(player.currentState != MyGdx.State.DEAD) {
@@ -251,6 +256,7 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        //goomba.draw(game.batch);
         game.batch.end();
 
         /*for (Enemy enemy : creator.getEnemies())
@@ -268,8 +274,8 @@ public class PlayScreen implements Screen{
         }*/
 
     }
-/*
-    public boolean gameOver(){
+
+    /*public boolean gameOver(){
         if(player.currentState == MyGdx.State.DEAD && player.getStateTimer() > 3){
             return true;
         }
