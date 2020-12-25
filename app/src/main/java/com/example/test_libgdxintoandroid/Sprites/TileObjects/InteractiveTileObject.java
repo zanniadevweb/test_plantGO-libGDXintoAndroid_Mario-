@@ -19,11 +19,14 @@ import com.brentaureli.mariobros.Scenes.Hud;
 import com.brentaureli.mariobros.Screens.PlayScreen;
 import com.brentaureli.mariobros.Sprites.Mario;*/
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -42,7 +45,7 @@ public abstract class InteractiveTileObject {
     //protected PlayScreen screen;
     //protected MapObject object;
 
-    //protected Fixture fixture;
+    protected Fixture fixture;
 
     public InteractiveTileObject(PlayScreen screen, Rectangle bounds) {
     this.world = screen.getWorld();
@@ -60,9 +63,9 @@ public abstract class InteractiveTileObject {
 
         shape.setAsBox(bounds.getWidth() / 2 / MyGdxGame.PPM, bounds.getHeight() / 2 / MyGdxGame.PPM);
         fdef.shape = shape;
-        body.createFixture(fdef);
+        fixture = body.createFixture(fdef);
     }
-    }
+
 
     /*public InteractiveTileObject(PlayScreen screen, MapObject object){
         this.object = object;
@@ -84,9 +87,9 @@ public abstract class InteractiveTileObject {
         fdef.shape = shape;
         fixture = body.createFixture(fdef);
 
-    }
+    }*/
 
-    public abstract void onHeadHit(Mario mario);
+    public abstract void onHeadHit();
     public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
@@ -95,9 +98,9 @@ public abstract class InteractiveTileObject {
 
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        return layer.getCell((int)(body.getPosition().x * MarioBros.PPM / 16),
-                (int)(body.getPosition().y * MarioBros.PPM / 16));
+        return layer.getCell((int)(body.getPosition().x * MyGdxGame.PPM / 16),
+                (int)(body.getPosition().y * MyGdxGame.PPM / 16));
     }
+}
 
-*/
 

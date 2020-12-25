@@ -33,8 +33,8 @@ import com.example.test_libgdxintoandroid.Scenes.Hud;
 //import com.example.test_libgdxintoandroid.Sprites.Ennemies.Goomba;
 import com.example.test_libgdxintoandroid.Sprites.MyGdx;
 import com.example.test_libgdxintoandroid.Tools.B2WorldCreator;
-//import com.example.test_libgdxintoandroid.Tools.WorldContactListener;
-//import com.example.test_libgdxintoandroid.Sprites.Enemies.Enemy;
+import com.example.test_libgdxintoandroid.Tools.WorldContactListener;
+//import com.example.test_libgdxintoandroid.Sprites.Ennemies.Enemy;
 
 /**
  * Created by brentaureli on 8/14/15.
@@ -117,7 +117,7 @@ public class PlayScreen implements Screen{
         //create mario in our game world
         player = new MyGdx(this);
 
-        //world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener());
 
         music = MyGdxGame.manager.get("audio/music/mario_music.ogg", Music.class);
         music.setLooping(true);
@@ -168,15 +168,10 @@ public class PlayScreen implements Screen{
         }
         /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
 
-        //MyGdx gdx = new MyGdx(world, this);  /***** INSTANCIATION POUR UTILISER CURRENTSTATE => MARCHE PAS CAR UTILISE CONSTRUCTEUR EN PERMANENCE => DOIT TROUVER AUTRE CHOSE
-
         //control our player using immediate impulses
-        /*************************************** PROBLEME AVEC LE SAUT PARTIE 8******************************************/
-        // if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && gdx.currentState != MyGdx.State.JUMPING && gdx.currentState != MyGdx.State.FALLING) { /***** CONDITION POUR CETTE METHODE
             if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
             }
-        /*************************************** PROBLEME AVEC LE SAUT PARTIE 8******************************************/
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2) {
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             }
@@ -211,7 +206,7 @@ public class PlayScreen implements Screen{
 
         player.update(dt);
         //goomba.update(dt);
-        //hud.update(dt);
+        hud.update(dt);
 
         gamecam.position.x = player.b2body.getPosition().x;
 

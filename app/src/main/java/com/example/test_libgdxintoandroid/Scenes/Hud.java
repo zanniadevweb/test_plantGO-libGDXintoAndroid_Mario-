@@ -25,18 +25,12 @@ public class Hud implements Disposable{
     private static Integer score;
 
     //Scene2D widgets
-    //private Label countdownLabel;
-    Label countdownLabel;
-    Label scoreLabel;
-    Label timeLabel;
-    Label levelLabel;
-    Label worldLabel;
-    Label marioLabel;
-    /*private static Label scoreLabel;
+    private Label countdownLabel;
+    private static Label scoreLabel;
     private Label timeLabel;
     private Label levelLabel;
     private Label worldLabel;
-    private Label marioLabel;*/
+    private Label marioLabel;
 
     public Hud(SpriteBatch sb){
         //define our tracking variables
@@ -81,25 +75,28 @@ public class Hud implements Disposable{
     }
 
     public void update(float dt){
-       /* timeCount += dt;
+       timeCount += dt;
         if(timeCount >= 1){
-            if (worldTimer > 0) {
+            //if (worldTimer > 0) {
                 worldTimer--;
-            } else {
+            /*} else {
                 timeUp = true;
-            }
+            }*/
             countdownLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
-        }*/
+        }
     }
 
     public static void addScore(int value){
-        /*score += value;
-        scoreLabel.setText(String.format("%06d", score));*/
+        score += value;
+        scoreLabel.setText(String.format("%06d", score));
     }
 
     @Override
-    public void dispose() { stage.dispose(); }
+    public void dispose()
+    {
+        stage.dispose();
+    }
 
     /*public boolean isTimeUp() { return timeUp; }*/
 }

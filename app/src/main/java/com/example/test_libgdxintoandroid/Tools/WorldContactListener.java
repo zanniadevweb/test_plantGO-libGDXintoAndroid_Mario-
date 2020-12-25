@@ -1,21 +1,37 @@
-//package com.example.test_libgdxintoandroid.Tools;
+package com.example.test_libgdxintoandroid.Tools;
 
-//import com.example.test_libgdxintoandroid.Sprites.Enemies.Enemy;
-//import com.example.test_libgdxintoandroid.Sprites.MyGdx;
+//import com.example.test_libgdxintoandroid.Sprites.Ennemies.Enemy;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.example.test_libgdxintoandroid.Sprites.MyGdx;
+import com.example.test_libgdxintoandroid.Sprites.TileObjects.InteractiveTileObject;
 
 
 /**
  * Created by brentaureli on 9/4/15.
  */
-/*public class WorldContactListener implements ContactListener {
+public class WorldContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;*/
+        if(fixA.getUserData() == "head" ||fixB.getUserData() == "head") {
+            Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
+            Fixture object = head == fixA ? fixB : fixA;
 
-        /*switch (cDef){
+            if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
+                ((InteractiveTileObject) object.getUserData()).onHeadHit();
+            }
+        }
+
+        /*int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+
+        switch (cDef){
             case MyGdxGame.MARIO_HEAD_BIT | MyGdxGame.BRICK_BIT:
             case MyGdxGame.MARIO_HEAD_BIT | MyGdxGame.COIN_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.MARIO_HEAD_BIT)
@@ -25,25 +41,25 @@
                 break;
             case MyGdxGame.ENEMY_HEAD_BIT | MyGdxGame.MARIO_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.ENEMY_HEAD_BIT)
-                    ((Enemy)fixA.getUserData()).hitOnHead((Mario) fixB.getUserData());
+                    ((Ennemy)fixA.getUserData()).hitOnHead((MyGdx) fixB.getUserData());
                 else
-                    ((Enemy)fixB.getUserData()).hitOnHead((Mario) fixA.getUserData());
+                    ((Ennemy)fixB.getUserData()).hitOnHead((MyGdx) fixA.getUserData());
                 break;
             case MyGdxGame.ENEMY_BIT | MyGdxGame.OBJECT_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.ENEMY_BIT)
-                    ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
+                    ((Ennemy)fixA.getUserData()).reverseVelocity(true, false);
                 else
-                    ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
+                    ((Ennemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
             case MyGdxGame.MARIO_BIT | MyGdxGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.MARIO_BIT)
-                    ((Mario) fixA.getUserData()).hit((Enemy)fixB.getUserData());
+                    ((MyGdx) fixA.getUserData()).hit((Ennemy)fixB.getUserData());
                 else
-                    ((Mario) fixB.getUserData()).hit((Enemy)fixA.getUserData());
+                    ((MyGdx) fixB.getUserData()).hit((Ennemy)fixA.getUserData());
                 break;
             case MyGdxGame.ENEMY_BIT | MyGdxGame.ENEMY_BIT:
-                ((Enemy)fixA.getUserData()).hitByEnemy((Enemy)fixB.getUserData());
-                ((Enemy)fixB.getUserData()).hitByEnemy((Enemy)fixA.getUserData());
+                ((Ennemy)fixA.getUserData()).hitByEnemy((Ennemy)fixB.getUserData());
+                ((Ennemy)fixB.getUserData()).hitByEnemy((Ennemy)fixA.getUserData());
                 break;
             case MyGdxGame.ITEM_BIT | MyGdxGame.OBJECT_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.ITEM_BIT)
@@ -53,9 +69,9 @@
                 break;
             case MyGdxGame.ITEM_BIT | MyGdxGame.MARIO_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.ITEM_BIT)
-                    ((Item)fixA.getUserData()).use((Mario) fixB.getUserData());
+                    ((Item)fixA.getUserData()).use((MyGdx) fixB.getUserData());
                 else
-                    ((Item)fixB.getUserData()).use((Mario) fixA.getUserData());
+                    ((Item)fixB.getUserData()).use((MyGdx) fixA.getUserData());
                 break;
             case MyGdxGame.FIREBALL_BIT | MyGdxGame.OBJECT_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.FIREBALL_BIT)
@@ -63,11 +79,12 @@
                 else
                     ((FireBall)fixB.getUserData()).setToDestroy();
                 break;
-        }
-    }*/
+        }*/
+    }
 
-    /*@Override
+    @Override
     public void endContact(Contact contact) {
+
     }
 
     @Override
@@ -77,6 +94,5 @@
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
-    }*/
-//}
-//}
+    }
+}

@@ -167,8 +167,21 @@ public class MyGdx extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / MyGdxGame.PPM);
 
+        fdef.filter.categoryBits = MyGdxGame.MARIO_BIT;
+        fdef.filter.maskBits = MyGdxGame.DEFAULT_BIT | MyGdxGame.COIN_BIT | MyGdxGame.BRICK_BIT;
+
         fdef.shape = shape;
         b2body.createFixture(fdef); // -- Ensemble Copié dans Goomba (cf. partie 16, 5:04 min)
+
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / MyGdxGame.PPM, 6 / MyGdxGame.PPM), new Vector2(2 / MyGdxGame.PPM, 6 / MyGdxGame.PPM));
+        //fdef.filter.categoryBits = MyGdxGame.MARIO_HEAD_BIT;
+        fdef.shape = head;
+        fdef.isSensor = true;
+
+        b2body.createFixture(fdef).setUserData("head");
+
+        //timeToRedefineMario = false;
     }
 
 
