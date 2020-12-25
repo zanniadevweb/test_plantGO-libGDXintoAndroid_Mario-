@@ -40,9 +40,9 @@ public class MyGdx extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public MyGdx(World world, PlayScreen screen) {
+    public MyGdx(PlayScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
-        this.world = world;
+        this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;

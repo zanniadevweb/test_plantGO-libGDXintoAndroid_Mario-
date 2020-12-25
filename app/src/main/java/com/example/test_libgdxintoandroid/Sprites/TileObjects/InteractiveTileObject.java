@@ -28,6 +28,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.example.test_libgdxintoandroid.MyGdxGame;
+import com.example.test_libgdxintoandroid.Screens.PlayScreen;
 
 /**
  * Created by brentaureli on 8/28/15.
@@ -43,9 +44,9 @@ public abstract class InteractiveTileObject {
 
     //protected Fixture fixture;
 
-    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {
-    this.world = world;
-    this.map = map;
+    public InteractiveTileObject(PlayScreen screen, Rectangle bounds) {
+    this.world = screen.getWorld();
+    this.map = screen.getMap();
     this.bounds = bounds;
 
         BodyDef bdef = new BodyDef();

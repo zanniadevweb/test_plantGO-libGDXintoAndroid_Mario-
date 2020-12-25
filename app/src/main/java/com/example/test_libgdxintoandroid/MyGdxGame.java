@@ -2,6 +2,10 @@ package com.example.test_libgdxintoandroid;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.backends.lwjgl.audio.Ogg;
+import com.badlogic.gdx.backends.lwjgl.audio.Wav;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,10 +38,35 @@ public class MyGdxGame extends Game {
     public static final float PPM = 100;
     public SpriteBatch batch;
 
+    /* WARNING Using AssetManager in a static way can cause issues, especially on Android.
+Instead you may want to pass around Assetmanager to those the classes that need it.
+We will use it in the static context to save time for now. */
+    public static AssetManager manager;
+
     @Override
     public void create () {
         batch = new SpriteBatch();
+        manager = new AssetManager();
+        manager.load("audio/music/mario_music.ogg", Music.class);
+        /*manager.load("audio/sounds/coin.wav", Sound.class);
+        manager.load("audio/sounds/bump.wav", Sound.class);
+        manager.load("audio/sounds/breakblock.wav", Sound.class);
+        manager.load("audio/sounds/powerup_spawn.wav", Sound.class);
+        manager.load("audio/sounds/powerup.wav", Sound.class);
+        manager.load("audio/sounds/powerdown.wav", Sound.class);
+        manager.load("audio/sounds/stomp.wav", Sound.class);
+        manager.load("audio/sounds/mariodie.wav", Sound.class);*/
+
+        manager.finishLoading();
+
         setScreen(new PlayScreen(this));
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        manager.dispose();
+        batch.dispose();
     }
 
     @Override

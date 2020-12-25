@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -70,7 +71,7 @@ public class PlayScreen implements Screen{
     private MyGdx player; // Character class object
     /*************************************** PARTIE 8 ******************************************/
 
-    //private Music music;
+    private Music music;
 
    // private Array<Item> items;
     //private LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -108,18 +109,18 @@ public class PlayScreen implements Screen{
         //allows for debug lines of our box2d world.
         b2dr = new Box2DDebugRenderer();
 
-        new B2WorldCreator(world, map);
+        new B2WorldCreator(this);
         //creator = new B2WorldCreator(this);
 
         //create mario in our game world
-        player = new MyGdx(world, this);
+        player = new MyGdx(this);
 
         //world.setContactListener(new WorldContactListener());
 
-        /*music = MyGdxGame.manager.get("audio/music/mario_music.ogg", Music.class);
+        music = MyGdxGame.manager.get("audio/music/mario_music.ogg", Music.class);
         music.setLooping(true);
         music.setVolume(0.3f);
-        music.play();*/
+        music.play();
 
         /*items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();*/
@@ -282,12 +283,12 @@ public class PlayScreen implements Screen{
 
     }
 
-    /*public TiledMap getMap(){
+    public TiledMap getMap(){
         return map;
     }
     public World getWorld(){
         return world;
-    }*/
+    }
 
     @Override
     public void pause() {
