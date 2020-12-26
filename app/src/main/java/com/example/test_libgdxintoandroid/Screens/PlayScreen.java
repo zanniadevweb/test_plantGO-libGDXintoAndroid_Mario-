@@ -168,6 +168,7 @@ public class PlayScreen implements Screen{
         /*************************************** PERMET DE GENERER UN OBJET AUTORISANT UN RETOUR A MAIN ACTIVITY ******************************************/
 
         //control our player using immediate impulses
+        if(player.currentState != MyGdx.State.DEAD) {
             if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
                 player.b2body.applyLinearImpulse(new Vector2(0, 4f), player.b2body.getWorldCenter(), true);
             }
@@ -177,6 +178,7 @@ public class PlayScreen implements Screen{
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2) {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             }
+        }
             /*if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 player.fire();
                 }*/
@@ -220,9 +222,9 @@ public class PlayScreen implements Screen{
             item.update(dt);*/
 
         //attach our gamecam to our players.x coordinate
-        /*if(player.currentState != MyGdx.State.DEAD) {
+        if(player.currentState != MyGdx.State.DEAD) {
             gamecam.position.x = player.b2body.getPosition().x;
-        }*/
+        }
 
         //update our gamecam with correct coordinates after changes
         gamecam.update();

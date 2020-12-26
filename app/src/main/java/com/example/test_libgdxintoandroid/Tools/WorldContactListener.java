@@ -2,6 +2,7 @@ package com.example.test_libgdxintoandroid.Tools;
 
 //import com.example.test_libgdxintoandroid.Sprites.Ennemies.Enemy;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -53,12 +54,14 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Ennemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
-            /*case MyGdxGame.MARIO_BIT | MyGdxGame.ENNEMY_BIT:
+            case MyGdxGame.MARIO_BIT | MyGdxGame.ENNEMY_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.MARIO_BIT)
-                    ((MyGdx) fixA.getUserData()).hit((Ennemy)fixB.getUserData());
+                    //((MyGdx) fixA.getUserData()).hitOnHead((Ennemy)fixB.getUserData());
+                    ((MyGdx) fixA.getUserData()).hit();
                 else
-                    ((MyGdx) fixB.getUserData()).hit((Ennemy)fixA.getUserData());
-                break;*/
+                    //((MyGdx) fixB.getUserData()).hitOnHead((Ennemy)fixA.getUserData());
+                    ((MyGdx) fixB.getUserData()).hit();
+                break;
             /*case MyGdxGame.ENNEMY_BIT | MyGdxGame.ENNEMY_BIT:
                 ((Ennemy)fixA.getUserData()).hitByEnemy((Ennemy)fixB.getUserData());
                 ((Ennemy)fixB.getUserData()).hitByEnemy((Ennemy)fixA.getUserData());

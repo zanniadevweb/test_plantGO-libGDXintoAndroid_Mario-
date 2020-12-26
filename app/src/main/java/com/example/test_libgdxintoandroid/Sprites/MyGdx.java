@@ -28,19 +28,19 @@ import com.example.test_libgdxintoandroid.Sprites.Ennemies.*;
  * Created by brentaureli on 8/27/15.
  */
 public class MyGdx extends Sprite {
-    //public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD };
-    public enum State { FALLING, JUMPING, STANDING, RUNNING };
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD };
+    //public enum State { FALLING, JUMPING, STANDING, RUNNING };
     public State currentState;
     public State previousState;
     public World world;
     public Body b2body;
     private TextureRegion marioStand;
+    private TextureRegion marioDead;
     private Animation<TextureRegion> marioRun;
     private Animation<TextureRegion> marioJump;
-    //private Animation<TextureRegion> marioDead; //-- NEW
     private float stateTimer;
     private boolean runningRight;
-    private boolean marioIsDead; //-- NEW
+    private boolean marioIsDead;
 
     public MyGdx(PlayScreen screen) {
         super(screen.getAtlas().findRegion("little_mario"));
@@ -69,7 +69,7 @@ public class MyGdx extends Sprite {
         marioStand = new TextureRegion(getTexture(), 1, 11, 16, 16);
 
         //create dead mario texture region
-        //marioDead = new TextureRegion(getTexture(), 96, 0, 16, 16); //-- NEW
+        marioDead = new TextureRegion(getTexture(), 96, 0, 16, 16); //-- NEW
 
         defineGdx();
         setBounds(0, 0, 16 / MyGdxGame.PPM, 16 / MyGdxGame.PPM);
@@ -88,9 +88,9 @@ public class MyGdx extends Sprite {
 
         //depending on the state, get corresponding animation keyFrame.
         switch(currentState) {
-            /*case DEAD:
-                //region = marioDead; //-- NEW
-                break;*/
+            case DEAD:
+                region = marioDead;
+                break;
             case JUMPING:
                 region = marioJump.getKeyFrame(stateTimer);
                 break;
@@ -129,13 +129,13 @@ public class MyGdx extends Sprite {
 
 
     public State getState() {
-        /*if (marioIsDead) {
+        if (marioIsDead) {
             return State.DEAD;
-        }*/
+        }
         /*else if (runGrowAnimation) {
             return State.GROWING;
         }*/
-        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
+        else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) {
             return State.JUMPING;
         }
         else if(b2body.getLinearVelocity().y < 0) {
@@ -149,11 +149,45 @@ public class MyGdx extends Sprite {
         }
     }
 
-    /* public boolean isDead(){
+        public void hit(){
+        /*if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.STANDING_SHELL)
+            ((Turtle) enemy).kick(enemy.b2body.getPosition().x > b2body.getPosition().x ? Turtle.KICK_RIGHT : Turtle.KICK_LEFT);
+        else {
+            if (marioIsBig) {
+                marioIsBig = false;
+                timeToRedefineMario = true;
+                setBounds(getX(), getY(), getWidth(), getHeight() / 2);
+                MyGdxGame.manager.get("audio/sounds/powerdown.wav", Sound.class).play();
+            } else {*/
+                //die();
+    /*************************************** PARTIE A ACTIVER SI NE VEUT PAS GRAND MARIO ******************************************/
+        die();
+        }
+    /*************************************** PARTIE A ACTIVER SI NE VEUT PAS GRAND MARIO ******************************************/
+
+    public void die() {
+
+        if (!isDead()) {
+
+            MyGdxGame.manager.get("audio/music/mario_music.ogg", Music.class).stop();
+            MyGdxGame.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
+            marioIsDead = true;
+            Filter filter = new Filter();
+            filter.maskBits = MyGdxGame.NOTHING_BIT;
+
+            for (Fixture fixture : b2body.getFixtureList()) {
+                fixture.setFilterData(filter);
+            }
+
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+        }
+    }
+
+    public boolean isDead(){
         return marioIsDead;
     }
 
-    public float getStateTimer(){
+    /*public float getStateTimer(){
         return stateTimer;
     }*/
 
@@ -176,11 +210,13 @@ public class MyGdx extends Sprite {
                 MyGdxGame.ENNEMY_HEAD_BIT;
 
         fdef.shape = shape;
-        b2body.createFixture(fdef); // -- Ensemble Copié dans Goomba (cf. partie 16, 5:04 min)
+        //b2body.createFixture(fdef); // UTILE QUE SI ON FAIT GRANDIR MARIO
+        b2body.createFixture(fdef).setUserData(this); // ALTERNATIVE SI ON NE FAIT PAS GRANDIR MARIO
 
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2 / MyGdxGame.PPM, 6 / MyGdxGame.PPM), new Vector2(2 / MyGdxGame.PPM, 6 / MyGdxGame.PPM));
         //fdef.filter.categoryBits = MyGdxGame.MARIO_HEAD_BIT;
+        //fdef.filter.categoryBits = MyGdxGame.MARIO_BIT;
         fdef.shape = head;
         fdef.isSensor = true;
 
