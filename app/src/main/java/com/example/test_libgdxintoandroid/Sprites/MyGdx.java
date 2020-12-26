@@ -21,8 +21,8 @@ import com.badlogic.gdx.utils.Array;
 import com.example.test_libgdxintoandroid.Sprites.MyGdx;
 import com.example.test_libgdxintoandroid.MyGdxGame;
 import com.example.test_libgdxintoandroid.Screens.PlayScreen;
-/*import com.example.test_libgdxintoandroid.Sprites.Other.FireBall;
-import com.example.test_libgdxintoandroid.Sprites.Enemies.*;*/
+//import com.example.test_libgdxintoandroid.Sprites.Other.FireBall;
+import com.example.test_libgdxintoandroid.Sprites.Ennemies.*;
 
 /**
  * Created by brentaureli on 8/27/15.
@@ -52,8 +52,8 @@ public class MyGdx extends Sprite {
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
         // Define run animation
-        for (int i = 1; i < 4; i++) {
-            frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 16));
+        for (int frame = 1; frame < 4; frame++) {
+            frames.add(new TextureRegion(getTexture(), frame * 16, 11, 16, 16));
         }
         marioRun = new Animation(0.1f, frames);
 
@@ -62,11 +62,11 @@ public class MyGdx extends Sprite {
 
         // define jump animation
         for (int frame = 1; frame < 6; frame++) {
-            frames.add(new TextureRegion(getTexture(), frame * 16, 0, 16, 16));
+            frames.add(new TextureRegion(getTexture(), frame * 16, 11, 16, 16));
         }
         marioJump = new Animation(0.1f, frames);
 
-        marioStand = new TextureRegion(getTexture(), 0, 0, 16, 16);
+        marioStand = new TextureRegion(getTexture(), 1, 11, 16, 16);
 
         //create dead mario texture region
         //marioDead = new TextureRegion(getTexture(), 96, 0, 16, 16); //-- NEW
@@ -168,7 +168,11 @@ public class MyGdx extends Sprite {
         shape.setRadius(6 / MyGdxGame.PPM);
 
         fdef.filter.categoryBits = MyGdxGame.MARIO_BIT;
-        fdef.filter.maskBits = MyGdxGame.DEFAULT_BIT | MyGdxGame.COIN_BIT | MyGdxGame.BRICK_BIT;
+        fdef.filter.maskBits = MyGdxGame.GROUND_BIT |
+                MyGdxGame.COIN_BIT |
+                MyGdxGame.BRICK_BIT |
+                MyGdxGame.ENNEMY_BIT |
+                MyGdxGame.OBJECT_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef); // -- Ensemble Copié dans Goomba (cf. partie 16, 5:04 min)
@@ -183,8 +187,6 @@ public class MyGdx extends Sprite {
 
         //timeToRedefineMario = false;
     }
-
-
 
 
     /*private TextureRegion marioStand;

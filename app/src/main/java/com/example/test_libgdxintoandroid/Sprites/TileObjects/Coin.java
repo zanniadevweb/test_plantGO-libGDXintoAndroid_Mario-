@@ -35,17 +35,6 @@ public class Coin extends InteractiveTileObject {
         setCategoryFilter(MyGdxGame.COIN_BIT);
     }
 
-
-    /*private static TiledMapTileSet tileSet;
-    private final int BLANK_COIN = 28;
-
-    public Coin(PlayScreen screen, MapObject object){
-        super(screen, object);
-        tileSet = map.getTileSets().getTileSet("tileset_gutter");
-        fixture.setUserData(this);
-        setCategoryFilter(MarioBros.COIN_BIT);
-    }*/
-
     @Override
     public void onHeadHit() {
         Gdx.app.log("coin", "Collision");

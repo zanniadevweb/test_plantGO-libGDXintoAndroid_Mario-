@@ -65,20 +65,19 @@ public class B2WorldCreator {
             //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             shape.setAsBox(rect.getWidth() / 2 / MyGdxGame.PPM, rect.getHeight() / 2 / MyGdxGame.PPM);
             fdef.shape = shape;
+            fdef.filter.categoryBits = MyGdxGame.OBJECT_BIT;
             body.createFixture(fdef);
         }
 
         //create coins bodies/fixtures
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
             new Coin(screen, rect);
         }
 
         //create brick bodies/fixtures
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
             new Brick(screen, rect);
 
         }
