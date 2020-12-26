@@ -159,7 +159,7 @@ public class MyGdx extends Sprite {
 
     public void defineGdx(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / MyGdxGame.PPM, 32 / MyGdxGame.PPM);
+        bdef.position.set(64 / MyGdxGame.PPM, 64 / MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -172,7 +172,8 @@ public class MyGdx extends Sprite {
                 MyGdxGame.COIN_BIT |
                 MyGdxGame.BRICK_BIT |
                 MyGdxGame.ENNEMY_BIT |
-                MyGdxGame.OBJECT_BIT;
+                MyGdxGame.OBJECT_BIT |
+                MyGdxGame.ENNEMY_HEAD_BIT;
 
         fdef.shape = shape;
         b2body.createFixture(fdef); // -- Ensemble Copié dans Goomba (cf. partie 16, 5:04 min)

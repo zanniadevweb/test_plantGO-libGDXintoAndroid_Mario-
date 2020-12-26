@@ -26,9 +26,9 @@ public abstract class Ennemy extends Sprite {
     }
 
     protected abstract void defineEnnemy();
-    /*public abstract void update(float dt);
+    //public abstract void update(float dt);
     public abstract void hitOnHead(MyGdx mario);
-    public abstract void hitByEnemy(Ennemy enemy);
+    /*public abstract void hitByEnemy(Ennemy enemy);
 
     public void reverseVelocity(boolean x, boolean y){
         if(x)

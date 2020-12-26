@@ -46,6 +46,7 @@ public class MyGdxGame extends Game {
     public static final short DESTROYED_BIT = 16;
     public static final short OBJECT_BIT = 32;
     public static final short ENNEMY_BIT = 64;
+    public static final short ENNEMY_HEAD_BIT = 128;
 
     public SpriteBatch batch;
 
@@ -62,10 +63,10 @@ We will use it in the static context to save time for now. */
         manager.load("audio/sounds/coin.wav", Sound.class);
         manager.load("audio/sounds/bump.wav", Sound.class);
         manager.load("audio/sounds/breakblock.wav", Sound.class);
+        manager.load("audio/sounds/stomp.wav", Sound.class);
         /*manager.load("audio/sounds/powerup_spawn.wav", Sound.class);
         manager.load("audio/sounds/powerup.wav", Sound.class);
         manager.load("audio/sounds/powerdown.wav", Sound.class);
-        manager.load("audio/sounds/stomp.wav", Sound.class);
         manager.load("audio/sounds/mariodie.wav", Sound.class);*/
 
         manager.finishLoading();

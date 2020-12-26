@@ -23,9 +23,9 @@ public class Goomba extends Ennemy
     private Animation<TextureRegion> walkAnimation;
     private Array<TextureRegion> frames;
     private TextureRegion goombaStand;
-    /*private boolean setToDestroy;
+    private boolean setToDestroy;
     private boolean destroyed;
-    float angle;*/
+    //float angle;
 
     public Goomba(PlayScreen screen, float x, float y) {
         super(screen, x, y);
@@ -37,33 +37,30 @@ public class Goomba extends Ennemy
         stateTime = 0;
 
         setBounds(getX(), getY(), 16 / MyGdxGame.PPM, 16 / MyGdxGame.PPM);
-        /*setToDestroy = false;
+        setToDestroy = false;
         destroyed = false;
-        angle = 0;*/
+        //angle = 0;
     }
 
     public void update(float dt){
         stateTime += dt;
-        //setPosition(b2body.getPosition().x - getWidth(), b2body.getPosition().y - getHeight());
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 );
-        setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
-        /*if(setToDestroy && !destroyed){
+        if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
             setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
-            stateTime = 0;
+            //stateTime = 0;
         }
         else if(!destroyed) {
-            b2body.setLinearVelocity(velocity);
+            //b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
-        }*/
+        }
     }
 
     @Override
     protected void defineEnnemy() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / MyGdxGame.PPM, 32 / MyGdxGame.PPM);
+        bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -82,47 +79,33 @@ public class Goomba extends Ennemy
         fdef.shape = shape;
         b2body.createFixture(fdef);
 
-        /*fdef.filter.categoryBits = MarioBros.ENEMY_BIT;
-        fdef.filter.maskBits = MarioBros.GROUND_BIT |
-                MarioBros.COIN_BIT |
-                MarioBros.BRICK_BIT |
-                MarioBros.ENEMY_BIT |
-                MarioBros.OBJECT_BIT |
-                MarioBros.MARIO_BIT;
-
-        fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
-
         //Create the Head here:
         PolygonShape head = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-5, 8).scl(1 / MarioBros.PPM);
-        vertice[1] = new Vector2(5, 8).scl(1 / MarioBros.PPM);
-        vertice[2] = new Vector2(-3, 3).scl(1 / MarioBros.PPM);
-        vertice[3] = new Vector2(3, 3).scl(1 / MarioBros.PPM);
+        vertice[0] = new Vector2(-5, 8).scl(1 / MyGdxGame.PPM);
+        vertice[1] = new Vector2(5, 8).scl(1 / MyGdxGame.PPM);
+        vertice[2] = new Vector2(-3, 3).scl(1 / MyGdxGame.PPM);
+        vertice[3] = new Vector2(3, 3).scl(1 / MyGdxGame.PPM);
         head.set(vertice);
 
         fdef.shape = head;
         fdef.restitution = 0.5f;
-        fdef.filter.categoryBits = MarioBros.ENEMY_HEAD_BIT;
-        b2body.createFixture(fdef).setUserData(this);*/
-
+        fdef.filter.categoryBits = MyGdxGame.ENNEMY_HEAD_BIT;
+        b2body.createFixture(fdef).setUserData(this);
     }
 
     /*public void draw(Batch batch){
         if(!destroyed || stateTime < 1)
             super.draw(batch);
-    }
-
-
+    }*/
 
     @Override
-    public void hitOnHead(Mario mario) {
+    public void hitOnHead(MyGdx mario) {
         setToDestroy = true;
-        MarioBros.manager.get("audio/sounds/stomp.wav", Sound.class).play();
+        MyGdxGame.manager.get("audio/sounds/stomp.wav", Sound.class).play();
     }
 
-    @Override
+   /*@Override
     public void hitByEnemy(Enemy enemy) {
         if(enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.MOVING_SHELL)
             setToDestroy = true;
