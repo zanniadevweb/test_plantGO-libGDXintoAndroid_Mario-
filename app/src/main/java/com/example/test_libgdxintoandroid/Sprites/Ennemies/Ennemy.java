@@ -14,27 +14,30 @@ public abstract class Ennemy extends Sprite {
     protected World world;
     protected PlayScreen screen;
     public Body b2body;
-    //public Vector2 velocity;
+    public Vector2 velocity;
 
     public Ennemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
         defineEnnemy();
-        /*velocity = new Vector2(-1, -2);
-        b2body.setActive(false);*/
+        //velocity = new Vector2(-1, -2);
+        velocity = new Vector2(1, 0);
+        //b2body.setActive(false);
     }
 
     protected abstract void defineEnnemy();
     //public abstract void update(float dt);
     public abstract void hitOnHead(MyGdx mario);
-    /*public abstract void hitByEnemy(Ennemy enemy);
+    //public abstract void hitByEnemy(Ennemy enemy);
 
     public void reverseVelocity(boolean x, boolean y){
-        if(x)
+        if(x) {
             velocity.x = -velocity.x;
-        if(y)
+        }
+        if(y) {
             velocity.y = -velocity.y;
+        }
+    }
 
-           */
 }

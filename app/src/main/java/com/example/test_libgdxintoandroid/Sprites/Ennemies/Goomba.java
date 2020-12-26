@@ -48,10 +48,10 @@ public class Goomba extends Ennemy
             world.destroyBody(b2body);
             destroyed = true;
             setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
-            //stateTime = 0;
+            stateTime = 0;
         }
         else if(!destroyed) {
-            //b2body.setLinearVelocity(velocity);
+            b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true));
         }
@@ -77,7 +77,7 @@ public class Goomba extends Ennemy
                 MyGdxGame.MARIO_BIT;
 
         fdef.shape = shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(this);
 
         //Create the Head here:
         PolygonShape head = new PolygonShape();
@@ -94,10 +94,10 @@ public class Goomba extends Ennemy
         b2body.createFixture(fdef).setUserData(this);
     }
 
-    /*public void draw(Batch batch){
+    public void draw(Batch batch){
         if(!destroyed || stateTime < 1)
             super.draw(batch);
-    }*/
+    }
 
     @Override
     public void hitOnHead(MyGdx mario) {

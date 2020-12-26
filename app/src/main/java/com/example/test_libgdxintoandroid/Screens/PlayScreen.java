@@ -123,7 +123,7 @@ public class PlayScreen implements Screen{
         music.setVolume(0.3f);
         music.play();
 
-        goomba = new Goomba(this, .32f, .32f);
+        goomba = new Goomba(this, 5.64f, .16f);
 
         /*items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();*/

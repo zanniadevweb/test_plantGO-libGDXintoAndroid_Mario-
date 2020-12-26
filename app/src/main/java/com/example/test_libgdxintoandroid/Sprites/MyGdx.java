@@ -159,7 +159,7 @@ public class MyGdx extends Sprite {
 
     public void defineGdx(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(64 / MyGdxGame.PPM, 64 / MyGdxGame.PPM);
+        bdef.position.set(15 / MyGdxGame.PPM, 15 / MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

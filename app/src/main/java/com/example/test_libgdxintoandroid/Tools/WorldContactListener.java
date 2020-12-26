@@ -46,20 +46,20 @@ public class WorldContactListener implements ContactListener {
                     ((Ennemy)fixA.getUserData()).hitOnHead((MyGdx) fixB.getUserData());
                 else
                     ((Ennemy)fixB.getUserData()).hitOnHead((MyGdx) fixA.getUserData());
-                //break;
-            /*case MyGdxGame.ENNEMY_BIT | MyGdxGame.OBJECT_BIT:
+                break;
+            case MyGdxGame.ENNEMY_BIT | MyGdxGame.OBJECT_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.ENNEMY_HEAD_BIT)
                     ((Ennemy)fixA.getUserData()).reverseVelocity(true, false);
                 else
                     ((Ennemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
-            case MyGdxGame.MARIO_BIT | MyGdxGame.ENNEMY_BIT:
+            /*case MyGdxGame.MARIO_BIT | MyGdxGame.ENNEMY_BIT:
                 if(fixA.getFilterData().categoryBits == MyGdxGame.MARIO_BIT)
                     ((MyGdx) fixA.getUserData()).hit((Ennemy)fixB.getUserData());
                 else
                     ((MyGdx) fixB.getUserData()).hit((Ennemy)fixA.getUserData());
-                break;
-            case MyGdxGame.ENNEMY_BIT | MyGdxGame.ENNEMY_BIT:
+                break;*/
+            /*case MyGdxGame.ENNEMY_BIT | MyGdxGame.ENNEMY_BIT:
                 ((Ennemy)fixA.getUserData()).hitByEnemy((Ennemy)fixB.getUserData());
                 ((Ennemy)fixB.getUserData()).hitByEnemy((Ennemy)fixA.getUserData());
                 break;*/
