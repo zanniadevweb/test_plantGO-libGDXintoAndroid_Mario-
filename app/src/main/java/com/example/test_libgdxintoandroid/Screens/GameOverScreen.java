@@ -1,4 +1,4 @@
-/*package com.example.test_libgdxintoandroid.Screens;
+package com.example.test_libgdxintoandroid.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.example.test_libgdxintoandroid.MyGdxGame;*/
+import com.example.test_libgdxintoandroid.MyGdxGame;
 
 /**
  * Created by brentaureli on 10/8/15.
- *//*
+ */
 public class GameOverScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
@@ -89,4 +89,4 @@ public class GameOverScreen implements Screen {
     public void dispose() {
         stage.dispose();
     }
-}*/
+}

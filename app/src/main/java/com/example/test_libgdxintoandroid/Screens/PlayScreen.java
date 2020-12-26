@@ -263,20 +263,20 @@ public class PlayScreen implements Screen{
         //Set our batch to now draw what the Hud camera sees.
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-/*
+
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
-        }*/
+        }
 
     }
 
-    /*public boolean gameOver(){
+    public boolean gameOver(){
         if(player.currentState == MyGdx.State.DEAD && player.getStateTimer() > 3){
             return true;
         }
         return false;
-    }*/
+    }
 
     @Override
     public void resize(int width, int height) {

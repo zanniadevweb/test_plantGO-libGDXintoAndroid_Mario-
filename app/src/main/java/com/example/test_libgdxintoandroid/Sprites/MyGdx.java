@@ -29,7 +29,6 @@ import com.example.test_libgdxintoandroid.Sprites.Ennemies.*;
  */
 public class MyGdx extends Sprite {
     public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD };
-    //public enum State { FALLING, JUMPING, STANDING, RUNNING };
     public State currentState;
     public State previousState;
     public World world;
@@ -187,9 +186,9 @@ public class MyGdx extends Sprite {
         return marioIsDead;
     }
 
-    /*public float getStateTimer(){
+    public float getStateTimer(){
         return stateTimer;
-    }*/
+    }
 
     public void defineGdx(){
         BodyDef bdef = new BodyDef();
